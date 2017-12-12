@@ -9,8 +9,18 @@
         }
         .img-box {
             background-color: rebeccapurple;
-            height: 160px;
-            width: 40px;
+            height: 500px;
+            margin: 0 40px;
+            width: calc(100% - 80px);
+            display: flex;
+            position: relative;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+        .img {
+            width: 130px;
+            height:  160px;
+            background-color: blue;
         }
     </style>
 </head>
@@ -20,6 +30,9 @@
 <div class="box">
     <p>推荐区</p>
     <div class="img-box">
+        <img src="./img/1.JPG" alt="" class="img">
+        <img src="./img/2.JPG" alt="" class="img">
+        <img src="./img/3.PNG" alt="" class="img">
 
     </div>
 </div>
