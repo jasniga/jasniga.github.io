@@ -139,6 +139,8 @@
             height: 12rem;
         }
         .tip-title {
+            display: flex;
+            justify-content: center;
             font-size: 15px;
             margin: 1.5rem 0;
         }
@@ -361,7 +363,7 @@
     <div class="tip hide">
         <div class="tip-title">主人开启了私密模式，输入房间ID进入</div>
         <div class="input-box">
-            <input type="password" class="input" placeholder="输入房间ID"><span class="enter">进入</span>
+            <input  class="input" type="file" accept="image/*" placeholder="输入房间ID"><span class="enter">进入</span>
         </div>
         <div class="pay-enter">无房间ID，请付费获取</div>
         <a class="close"></a>
@@ -399,6 +401,24 @@
     var payWrapper = document.querySelector('.pay-wrapper');
     var tip = document.querySelector('.tip');
     var wrongTip = document.querySelector('.tip-wrong');
+    var input = document.querySelector('.input');
+    input.addEventListener('change', function () {
+
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                wrongTip.classList.remove('hide');
+                tip.classList.add('hide');
+                wrongTip.innerText = '请输入正确的房间ID！';
+                setTimeout(function () {
+                    wrongTip.classList.add('hide');
+                    tip.classList.remove('hide');
+                }, 1000);
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+
+    });
     for (var i = 0; i < cells.length; i++) {
         var cell = cells[i];
         cell.addEventListener('click', function (e) {
