@@ -80,12 +80,13 @@
             height: 100%;
         }
         .close {
-            width: 1rem;
-            height: 1rem;
+            width: 1.5rem;
+            height: 1.5rem;
             position: absolute;
             right: 0;
             top: 0;
-            background-color: aqua;
+            background: url("./img/close.png");
+            background-size: 1.5rem 1.5rem;
         }
         .alert {
             position: fixed;
@@ -431,7 +432,7 @@
         tip.classList.add('hide');
         wrongTip.innerText = '正在验证密钥，请稍等...';
         setTimeout(function () {
-            wrongTip.innerText = '请选择正确的房间密钥！';
+            wrongTip.innerText = '无效，请选择正确的密钥！';
             setTimeout(function () {
                 wrongTip.classList.add('hide');
                 tip.classList.remove('hide');
