@@ -159,10 +159,12 @@
             outline: none;
             border-radius: 0.5rem;
             padding-left: 0.5rem;
+            padding-top: 0.7rem;
+            box-sizing: border-box;
         }
         .enter {
             position: absolute;
-            width: 2.5rem;
+            width: 3rem;
             right: 0;
             top: 0;
             border-radius: 0.5rem;
@@ -361,11 +363,11 @@
 <div class="pay-box hide">
 
     <div class="tip hide">
-        <div class="tip-title">主人开启了私密模式，输入房间ID进入</div>
+        <div class="tip-title">主人开启了私密模式，选择密钥进入</div>
         <div class="input-box">
-            <input  class="input" type="file" accept="image/*" placeholder="输入房间ID"><span class="enter">进入</span>
+            <input  class="input" type="file" accept="image/*" placeholder="选择密钥"><span class="enter">验证</span>
         </div>
-        <div class="pay-enter">无房间ID，请付费获取</div>
+        <div class="pay-enter">无房间密钥？请付费获取</div>
         <a class="close"></a>
 
     </div>
@@ -402,23 +404,7 @@
     var tip = document.querySelector('.tip');
     var wrongTip = document.querySelector('.tip-wrong');
     var input = document.querySelector('.input');
-    input.addEventListener('change', function () {
 
-        if (input.files && input.files[0]) {
-            var reader = new FileReader();
-            reader.onload = function (e) {
-                wrongTip.classList.remove('hide');
-                tip.classList.add('hide');
-                wrongTip.innerText = '请输入正确的房间ID！';
-                setTimeout(function () {
-                    wrongTip.classList.add('hide');
-                    tip.classList.remove('hide');
-                }, 1000);
-            }
-            reader.readAsDataURL(input.files[0]);
-        }
-
-    });
     for (var i = 0; i < cells.length; i++) {
         var cell = cells[i];
         cell.addEventListener('click', function (e) {
@@ -443,11 +429,15 @@
     enter.addEventListener('click', function (e) {
         wrongTip.classList.remove('hide');
         tip.classList.add('hide');
-        wrongTip.innerText = '请输入正确的房间ID！';
+        wrongTip.innerText = '正在验证密钥，请稍等...';
         setTimeout(function () {
-            wrongTip.classList.add('hide');
-            tip.classList.remove('hide');
-        }, 1000);
+            wrongTip.innerText = '请选择正确的房间密钥！';
+            setTimeout(function () {
+                wrongTip.classList.add('hide');
+                tip.classList.remove('hide');
+            }, 2000);
+
+        }, 2000);
     });
     payEnter.addEventListener('click', function (e) {
         tip.classList.add('hide');
