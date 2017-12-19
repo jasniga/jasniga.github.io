@@ -128,7 +128,60 @@
         .v8 {
             background-image: url("./img/1.JPG");
         }
+        .tip {
+            width: calc(100% - 4rem);
+            font-size: 14px;
+            color: black;
+            background-color: white;
+            border-radius: 0.5rem;
+            position: relative;
+            padding: 0 1rem;
+            height: 8.5rem;
+        }
+        .tip-title {
+            margin: 1rem 0;
+        }
+        .input-box {
+            margin: 0.5rem 0;
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+            height: 2rem;
 
+        }
+        .input {
+            flex: 1;
+            background-color: yellow;
+            border: none;
+            outline: none;
+            border-radius: 0.5rem;
+            padding-left: 0.5rem;
+        }
+        .enter {
+            position: absolute;
+            width: 2.5rem;
+            right: 0;
+            top: 0;
+            border-radius: 0.5rem;
+            height: 2rem;
+            line-height: 2rem;
+        }
+
+        .pay-enter {
+            display: flex;
+            justify-content: center;
+            margin: 1rem 0;
+            border-radius: 0.5rem;
+            background-color: yellow;
+            height: 1.5rem;
+            line-height: 1.5rem;
+        }
+        .tip-wrong {
+            background-color: white;
+            padding:1rem 2rem;
+            border-radius: 1.5rem;
+            font-size: 18px;
+        }
     </style>
 </head>
 
@@ -303,10 +356,24 @@
     </div>
 </div>
 <div class="pay-box hide">
-    <div class="pay-wrapper">
+
+    <div class="tip hide">
+        <div class="tip-title">主人开启了私密模式，输入房间ID进入</div>
+        <div class="input-box">
+            <input type="text" class="input" placeholder="输入房间ID"><span class="enter">进入</span>
+        </div>
+        <div class="pay-enter">无房间ID，请付费获取</div>
+        <a class="close"></a>
+
+    </div>
+
+    <div class="pay-wrapper hide">
         <img class="pay-img" src="./img/pay01.JPG" alt="">
         <a class="close"></a>
+
     </div>
+    <div class="tip-wrong">进入中...请稍等...</div>
+
 </div>
 
 <div class="alert hide">抱歉！请在微信中打开当前页面</div>
@@ -325,15 +392,45 @@
     }
     var payBox = document.querySelector('.pay-box');
     var cells = document.querySelectorAll('.cell');
-    var close = document.querySelector('.close');
+    var closes = document.querySelectorAll('.close');
+    var enter = document.querySelector('.enter');
+    var payEnter = document.querySelector('.pay-enter');
+    var payWrapper = document.querySelector('.pay-wrapper');
+    var tip = document.querySelector('.tip');
+    var wrongTip = document.querySelector('.tip-wrong');
     for (var i = 0; i < cells.length; i++) {
         var cell = cells[i];
         cell.addEventListener('click', function (e) {
             payBox.classList.remove('hide');
+            setTimeout(function () {
+                wrongTip.classList.add('hide');
+                tip.classList.remove('hide');
+            }, 1000);
         });
     }
-    close.addEventListener('click', function (e) {
-        payBox.classList.add('hide');
+    for (var i = 0; i < closes.length; i++) {
+        var close = closes[i];
+        close.addEventListener('click', function (e) {
+            payBox.classList.add('hide');
+            payWrapper.classList.add('hide');
+            tip.classList.add('hide');
+            wrongTip.classList.remove('hide');
+            wrongTip.innerText = '进入中...请稍等...';
+        });
+    }
+
+    enter.addEventListener('click', function (e) {
+        wrongTip.classList.remove('hide');
+        tip.classList.add('hide');
+        wrongTip.innerText = '请输入正确的房间ID！';
+        setTimeout(function () {
+            wrongTip.classList.add('hide');
+            tip.classList.remove('hide');
+        }, 1000);
+    });
+    payEnter.addEventListener('click', function (e) {
+        tip.classList.add('hide');
+        payWrapper.classList.remove('hide');
     });
     // var isWechat = checkIsWechat();
     // if (isWechat) {
